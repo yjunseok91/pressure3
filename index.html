@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>압력 단위 변환기</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .converter {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    label, select, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      background: #007aff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>압력 단위 변환기</h1>
+  <div class="converter">
+    <label for="pressureInput">압력 값 (kPa):</label>
+    <input type="number" id="pressureInput" placeholder="예: 101.3">
+
+    <label for="targetUnit">변환 단위 선택:</label>
+    <select id="targetUnit">
+      <option value="mmHg">mmHg</option>
+    </select>
+
+    <button onclick="convertPressure()">변환하기</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function convertPressure() {
+      const kPa = parseFloat(document.getElementById("pressureInput").value);
+      const targetUnit = document.getElementById("targetUnit").value;
+      let result = '';
+
+      if (isNaN(kPa)) {
+        result = "압력 값을 입력하세요.";
+      } else {
+        if (targetUnit === "mmHg") {
+          const mmHg = kPa * 7.50062;
+          result = `${kPa} kPa = ${mmHg.toFixed(2)} mmHg`;
+        } else {
+          result = "지원되지 않는 단위입니다.";
+        }
+      }
+
+      document.getElementById("result").textContent = result;
+    }
+  </script>
+</body>
+</html>
